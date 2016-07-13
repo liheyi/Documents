@@ -2,7 +2,6 @@
 # Interprocess Communication Libraries:
 # ------------------------------------
 # subprocess -- Subprocess management
-# Envoy -- Python Subprocesses for Humans
 # sarge -- Another wrapper for subprocess
 # sh -- A full-fledged subprocess replacement for Python.
 
