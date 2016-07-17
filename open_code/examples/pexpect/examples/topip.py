@@ -156,15 +156,18 @@ def main():
             print(args, len(args))
             return 0
             exit_with_usage()
+			
     if [elem for elem in options if elem in ['-h','--h','-?','--?','--help']]:
         print('Help:')
         exit_with_usage()
+
     if '-s' in options:
         hostname = options['-s']
     else:
         # if host was not specified then assume localhost munin plugin.
         munin_flag = True
         hostname = 'localhost'
+		
     # If localhost then don't ask for username/password.
     if hostname != 'localhost' and hostname != '127.0.0.1':
         if '-u' in options:
@@ -183,23 +186,28 @@ def main():
         log_flag = True
     else:
         log_flag = False
+
     if '-n' in options:
         average_n = int(options['-n'])
     else:
         average_n = None
+
     if '-v' in options:
         verbose = True
     else:
         verbose = False
+
     if '-a' in options:
         alert_flag = True
         (alert_addr_from, alert_addr_to) = tuple(options['-a'].split(','))
     else:
         alert_flag = False
+
     if '--ipv6' in options:
         ipv6_flag = True
     else:
         ipv6_flag = False
+
     if '--stddev' in options:
         stddev_trigger = float(options['--stddev'])
     else:
@@ -210,6 +218,7 @@ def main():
     else:
         netstat_pattern = '(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(?:::ffff:)*(\S+):(\S+)\s+.*?\r'
         #netstat_pattern = '(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+):(\S+)\s+.*?\r'
+
 
     # run netstat (either locally or via SSH).
     if use_localhost:
