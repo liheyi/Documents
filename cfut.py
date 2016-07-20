@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import time
 import getopt
 import pexpect
 from pexpect import pxssh
@@ -31,11 +32,6 @@ ip_list = filter(None, ip_list)
 dv_list = list(awk((sed(cat('zz_full.info'), "1d")), "{print $14}"))
 dv_list = [ str(x.rstrip()) for x in dv_list ]
 dv_list = filter(None, dv_list)
-number_list =  map(lambda x:x.lstrip('z_'), alias)
-# dict
-number_dv = dict(zip(alias, zip(number_list, dv_list)))
-alias_to_ip = dict(zip(alias, ip_list))
-intra_to_ip = dict(zip(intra, ip_list))
 
 
 # single gameserver
@@ -43,17 +39,20 @@ def singel_server(hostname, username, port, num):
 
 	password = 'Skymoons&2013%crimoon@2015*!+&weiwubaQi'
 	path = "/home/admin/server/gameserver" + str(num) + "/config/"
-	cmd = 'ls -l ' + reduce(lambda x,y: x + ' ' + y , [ path + x  for x in args ])
+	cmd = 'ls -lh ' + reduce(lambda x,y: x + ' ' + y , [ path + x  for x in args ])
 
 	try:
 		s = pxssh.pxssh()
 		s.login(hostname, username, password, port=port, login_timeout=60)
 		s.sendline(cmd)
-		s.prompt(timeout=600)
+		s.prompt(timeout=60)
 		print 'gameserver' + str(num)
 		output = s.before.split('\r\n')
 		for i in output[1:len(output)-1]:
-			print i
+			li = i.split()
+			li[8] = li[8].replace('/home/admin', '~')
+			print reduce(lambda x,y: x + ' ' + y, li)
+			#print i
 		s.logout()
 	except pxssh.ExceptionPxssh as e:
 		print 'gameserver' + str(num)
@@ -74,13 +73,15 @@ def specified_ip(hostname, username, port):
 		s.prompt(timeout=60)
 		output = s.before.split('\r\n')
                 numbers = map(lambda x:x.lstrip('gameserver'), output[1:len(output)-1])
-                for x in numbers:
-                    num = x
+                for num in numbers:
+                    #num = x
                     singel_server(hostname, username, port, num)
+                    time.sleep(1)
 		s.logout()
 	except pxssh.ExceptionPxssh as e:
 		print 'pxssh failed on login.'
-		print e
+		print e 
+
 
 # parse command line options and arguments
 optlist, args = getopt.getopt(sys.argv[1:], 's:u:p:')
@@ -115,13 +116,17 @@ if '-s' in options:
         else:
             pass  # exception and exit
     if '192' in hostname:
+        intra_to_ip = dict(zip(intra, ip_list))
         if hostname in intra_to_ip.keys():
             hostname = intra_to_ip[hostname]
             specified_ip(hostname, username, port)
         else:
             pass  # exception and exit
     if 'zz' in hostname:
+        alias_to_ip = dict(zip(alias, ip_list))
         if hostname in alias_to_ip.keys():
+            number_list =  map(lambda x:x.lstrip('z_'), alias)
+            number_dv = dict(zip(alias, zip(number_list, dv_list)))
             num = int(number_dv[hostname][0]) - int(number_dv[hostname][1])
             hostname = alias_to_ip[hostname]
             singel_server(hostname, username, port, num)
@@ -131,3 +136,13 @@ else:
     for i in set(ip_list):
         hostname=i
         specified_ip(hostname, username, port)
+#    active_alias = list(awk(awk('$14 ~ /^0$/ { print $0 }', 'zz_full.info'), '{print $1}'))
+#    active_alias = map(lambda x: str(x.rstrip()), active_alias)
+#    active_ip = list(awk(awk('$14 ~ /^0$/ { print $0 }', 'zz_full.info'), '{print $3}'))
+#    active_ip = map(lambda x: str(x.rstrip()), active_ip)
+#    active_alise_ip = zip(active_alias, active_ip)
+#
+#    for alise,ip in active_alise_ip:
+#        num = alise.lstrip('z_')
+#        hostname = ip
+#        singel_server(hostname, username, port, num) 
