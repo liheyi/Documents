@@ -39,7 +39,7 @@ intra_to_ip = dict(zip(intra, ip_list))
 
 
 # single gameserver
-def singel_server(hostname, username, port):
+def singel_server(hostname, username, port, num):
 
 	password = 'Skymoons&2013%crimoon@2015*!+&weiwubaQi'
 	path = "/home/admin/server/gameserver" + str(num) + "/config/"
@@ -47,46 +47,40 @@ def singel_server(hostname, username, port):
 
 	try:
 		s = pxssh.pxssh()
-		#ostname = '175.25.18.153'
-		#sername = 'admin'
-
-		s.login(hostname, username, password, port=port)
+		s.login(hostname, username, password, port=port, login_timeout=60)
 		s.sendline(cmd)
-		s.prompt()
-		#print s.before
+		s.prompt(timeout=600)
 		print 'gameserver' + str(num)
 		output = s.before.split('\r\n')
 		for i in output[1:len(output)-1]:
 			print i
 		s.logout()
 	except pxssh.ExceptionPxssh as e:
+		print 'gameserver' + str(num)
 		print 'pxssh failed on login.'
 		print e
 
+
 # all gameserver on the specified ip(intranet or public)
-#def specified_ip(hostname, username, port):
-#
-#	password = 'Skymoons&2013%crimoon@2015*!+&weiwubaQi'
-#	path = "/home/admin/server/gameserver" + str(num) + "/config/"
-#	cmd = 'ls -l ' + reduce(lambda x,y: x + ' ' + y , [ path + x  for x in args ])
-#
-#	try:
-#		s = pxssh.pxssh()
-#		#ostname = '175.25.18.153'
-#		#sername = 'admin'
-#
-#		s.login(hostname, username, password, port=port)
-#		s.sendline(cmd)
-#		s.prompt()
-#		#print s.before
-#		print 'gameserver' + str(num)
-#		output = s.before.split('\r\n')
-#		for i in output[1:len(output)-1]:
-#			print i
-#		s.logout()
-#	except pxssh.ExceptionPxssh as e:
-#		print 'pxssh failed on login.'
-#		print e
+def specified_ip(hostname, username, port):
+
+	password = 'Skymoons&2013%crimoon@2015*!+&weiwubaQi'
+        cmd = "ls /home/admin/server/ | grep '^gameserver'"
+
+	try:
+		s = pxssh.pxssh()
+		s.login(hostname, username, password, port=port, login_timeout=60)
+		s.sendline(cmd)
+		s.prompt(timeout=60)
+		output = s.before.split('\r\n')
+                numbers = map(lambda x:x.lstrip('gameserver'), output[1:len(output)-1])
+                for x in numbers:
+                    num = x
+                    singel_server(hostname, username, port, num)
+		s.logout()
+	except pxssh.ExceptionPxssh as e:
+		print 'pxssh failed on login.'
+		print e
 
 # parse command line options and arguments
 optlist, args = getopt.getopt(sys.argv[1:], 's:u:p:')
@@ -110,27 +104,30 @@ if '-p' in options:
         pass  # exception and exit
 else:
     port = '2009'
+
 # hostname 
 # running
-ALL_SERVERS=False
 if '-s' in options:
     hostname = options['-s']
+    if '175' in hostname:
+        if hostname in ip_list:
+            specified_ip(hostname, username, port)
+        else:
+            pass  # exception and exit
+    if '192' in hostname:
+        if hostname in intra_to_ip.keys():
+            hostname = intra_to_ip[hostname]
+            specified_ip(hostname, username, port)
+        else:
+            pass  # exception and exit
     if 'zz' in hostname:
         if hostname in alias_to_ip.keys():
             num = int(number_dv[hostname][0]) - int(number_dv[hostname][1])
             hostname = alias_to_ip[hostname]
-            singel_server(hostname, username, port)
+            singel_server(hostname, username, port, num)
         else:
             pass  # exception and exit 
-    if '192' in hostname:
-        if hostname in intra_to_ip.keys():
-            hostname = intra_to_ip[hostname]
-        else:
-            pass  # exception and exit
-    if '175' in hostname:
-        if hostname in ip_list:
-            pass  # Right,do nothing
-        else:
-            pass  # exception and exit
 else:
-    ALL_SERVERS=True
+    for i in set(ip_list):
+        hostname=i
+        specified_ip(hostname, username, port)
