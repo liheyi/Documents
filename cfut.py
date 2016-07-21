@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import time
 import getopt
 import pexpect
 from pexpect import pxssh
@@ -72,7 +73,6 @@ def singel_server(hostname, username, port, num):
         s.prompt(timeout=60)
         print 'gameserver' + str(num)
         output = s.before.split('\r\n')
-        print output
         for i in output[1:len(output)-1]:
             li = i.split()
             li[8] = li[8].replace('/home/admin', '~')
@@ -82,7 +82,6 @@ def singel_server(hostname, username, port, num):
     	print 'gameserver' + str(num)
     	print 'pxssh failed on login.'
     	print e
-
 
 # all gameserver on the specified ip(intranet or public)
 def specified_ip(hostname, username, port):
