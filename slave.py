@@ -13,10 +13,10 @@ password = 'Skymoons&2013%crimoon@2015*!+&weiwubaQi'
 active_alias = list(awk(awk('$14 ~ /^0$/ { print $0 }', 'zz_full.info'), '{print $1}'))
 active_alias = map(lambda x: str(x.rstrip()), active_alias)
 # active gameserver ip(public)
-active_ip = list(awk(awk('$14 ~ /^0$/ { print $0 }', 'zz_full.info'), '{print $3}'))
+active_ip = list(awk(awk('$14 ~ /^0$/ { print $0 }', 'zz_full.info'), '{print $11}'))
 active_ip = map(lambda x: str(x.rstrip()), active_ip)
 # mysql slave login passwd
-sql_passwd = list(awk(awk('$14 ~ /^0$/ { print $0 }', 'zz_full.info'), '{print $10}'))
+sql_passwd = list(awk(awk('$14 ~ /^0$/ { print $0 }', 'zz_full.info'), '{print $16}'))
 sql_passwd = map(lambda x: str(x.rstrip()), sql_passwd)
 # data structure
 number = map(lambda x:x.lstrip('z_'), active_alias)
@@ -26,15 +26,24 @@ alias_index = sorted(alias_ip_passwd)
 def single_gameserver(num, hostname, passwd):
 
     try:
-        cmd = '''\
-                mysql -uroot -S /tmp/mysqlzz{0}.sock -e "show databases;" > /dev/null 2>&1;[ $(echo $?) == 0 ] && \
-                mysql -uroot -S /tmp/mysqlzz{0}.sock -e "show slave status\G" | grep "Running" | sed "s/^ *//" || \
-                mysql -uroot -S /tmp/mysqlzz{0}.sock -p{1} -e "show slave status\G" | grep "Running" | sed "s/^ *//"
-              '''.format(num, passwd)
+#        cmd = '''\
+#                mysql -uroot -S /tmp/mysqlzz{0}.sock -e "show databases;" > /dev/null 2>&1;[ $(echo $?) == 0 ] && \
+#                mysql -uroot -S /tmp/mysqlzz{0}.sock -e "show slave status\G" | grep "Running" | sed "s/^ *//" || \
+#                mysql -uroot -S /tmp/mysqlzz{0}.sock -p{1} -e "show slave status\G" | grep "Running" | sed "s/^ *//"
+#              '''.format(num, passwd)
+        if passwd == 'Null':
+            cmd = '''mysql -uroot -S /tmp/mysqlzz{0}.sock -e "show slave status\G" | grep "Running" | sed "s/^ *//"'''.format(num)
+        else:
+            cmd = '''mysql -uroot -S /tmp/mysqlzz{0}.sock -p{1} -e "show slave status\G" | grep "Running" | sed "s/^ *//"'''.format(num, passwd)
+
+#        print num
+#        print hostname
+#        print passwd
+#        print cmd
         s = pxssh.pxssh()
-        s.login(hostname, username, password, port=2009)
+        s.login(hostname, username, password, port=2009, login_timeout=600)
         s.sendline(cmd)
-        s.prompt(timeout=60)
+        s.prompt(timeout=600)
         output = s.before.split('\r\n')
         print output
         s.logout()
