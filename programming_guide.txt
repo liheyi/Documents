@@ -1,0 +1,160 @@
+参考：https://zhuanlan.zhihu.com/p/19959253
+
+正确的编程学习方法应该是：
+通过自顶而下的探索与项目实践，获得编程直觉与推动力；
+从自底向上的打基础过程中，获得最重要的通用方法并巩固编程思想的理解。
+作为初学者，应以后者为主，前者为辅
+
+启蒙阶段
+编程知识的金字塔底部有三个关键的部分：
+
+1. 算法思想：例如怎样找出一组数中最大的那个数？首先你得有一个 maxSoFar 变量，之后对于每个数…
+2. 语法：我怎样用某种编程语言表达这些算法，让计算机能够理解。
+3. 系统基础：为什么 while(1) 时线程永远无法结束？为什么 int *foo() { int x = 0; return &x; } 是不可行的？
+
+完成学习
+1. 完成 MIT 6.00.1x （麻省理工：计算机科学和 Python 编程导论）-- 视频
+http://www.xuetangx.com/courses/course-v1:MITx+6_00_1x+sp/about
+
+2. 完成 Harvard CS50x （哈佛大学：计算机科学）-- 视频
+http://open.163.com/special/opencourse/cs50.html
+
+3.完成廖雪峰Python教程 -- 在线文档
+http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000
+结合Python2.7官方文档一并阅读 -- 本地文档
+C:\Users\Administrator\Desktop\books\book\python-2.7.11-docs-html
+
+4. 阅读<编码> -- 本地文档
+C:\Users\Administrator\Desktop\books\book\Code The Hidden Language of Computer Hardware and Software.pdf
+C:\Users\Administrator\Desktop\books\book\编码的奥秘-隐匿在计算机背后的软硬件语言(中文版).pdf
+
+入门阶段
+反思自己曾经写过的程序，去思考程序为什么 (Why) 要这样设计？
+思考怎样 (How) 写出更好的程序？
+试图去探寻理解编程的本质：利用计算机解决问题
+
+X = 用于思考解决方案的时间，即「解决问题」 部分
+Y = 用于实现代码的时间，即「利用计算机」部分」
+编程能力 = F(X, Y) （X>Y）
+
+核心书籍I：
+Structure and Interpretation of Computer Programs (SICP)《计算机程序的构造和解释》
+本地文档 -- 英文版
+C:\Users\Administrator\Desktop\books\book\sicp.pdf
+本地文档 -- 中文版
+C:\Users\Administrator\Desktop\books\book\计算机程序的构造和解释.pdf
+
+相关资源：
+1. How to Design Programs, Second Edition -- 在线文档(2016.8版本)
+http://www.ccs.neu.edu/home/matthias/HtDP2e/index.html#%28part._htdp2e%29
+离线文档 -- 2015.9版本
+C:\Users\Administrator\Desktop\books\book\How To Design Programs (2nd Edition).pdf
+
+2.UC Berkeley SICP 授课视频 -- 优酷视频
+http://www.soku.com/search_video/q_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E9%87%8A?f=1&kb=040200000000000__%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E9%87%8A&_rp=1argadi0tfme&_rp=1argadi0tfme
+
+3.《计算机程序的构造和解释》公开课中文化项目
+https://github.com/DeathKing/Learning-SICP/
+
+4.Udacity CS212 Design of Computer Program -- 在线视频
+https://www.udacity.com/course/design-of-computer-programs--cs212
+
+5.Composing Programs -- 在线文档
+http://composingprograms.com/
+
+6.SICP 解题集
+http://sicp.readthedocs.io/en/latest/index.html
+
+核心书籍II:
+The Elements of Computing Systems -- 本地文档
+C:\Users\Administrator\Desktop\books\book\The_Elements_of_Computer_System.pdf
+计算机系统要素  -- 本地文档
+C:\Users\Administrator\Desktop\books\book\计算机系统要素：从零开始构建现代计算机.pdf
+坚持完成这本书的所有项目！
+
+相关资源:
+1.依据基本原理构建现代计算机：从与非门到俄罗斯方块（基于项目的课程） -- 在线视频
+https://www.coursera.org/learn/build-a-computer 
+
+2.计算机系统要素：从零开始构建现代计算机 -- 官方网站
+http://www.nand2tetris.org/
+
+3.官方读者问答论坛（管理员回复速度很快）
+http://nand2tetris-questions-and-answers-forum.32033.n3.nabble.com/
+
+4.CSDN博客 -- 章节讲解
+http://blog.csdn.net/thomas_in_june/article/category/2506421
+
+5.CSDN博客博主所写代码
+Chapter 1~4
+https://github.com/cmoylan/Elements-of-Computing-Systems
+Chapter 5~12
+https://github.com/ThomasCJY/The_Elements_of_Computing_Systems
+
+其他重要方面--包含在入门阶段
+
+I.计算机科学基础
+1.Computer Systems: A Programmer's Perspective -- 本地文档(英文)
+C:\Users\Administrator\Desktop\books\book\Computer Systems A Programmer Perspective.pdf
+
+2. The Hardware/Software Interface -- 配套在线视频
+暂无
+
+3.The C Programming Language -- 实体书
+
+II.数据结构与算法基础
+1. 数据结构与算法分析：C语言描述.pdf -- 本地文档(中文)
+C:\Users\Administrator\Desktop\books\book\数据结构与算法分析：C语言描述.pdf
+本地文档 -- 英文
+C:\Users\Administrator\Desktop\books\book\Data Structures and algorithm analysis in C 2.pdf
+
+2.算法导论 -- 本地文档
+英文版
+C:\Users\Administrator\Desktop\books\book\Introduction to Algorithms.pdf
+中文版
+C:\Users\Administrator\Desktop\books\book\算法导论.pdf
+
+3.Algorithms: Design and Analysis [Part 1] & [Part 2] -- 在线视频(英语)
+https://www.coursera.org/learn/algorithm-design-analysis
+https://www.coursera.org/learn/algorithm-design-analysis-2
+
+4.麻省理工学院公开课：算法导论 -- 在线视频
+http://open.163.com/special/opencourse/algorithms.html
+
+5.编程珠玑 -- 本地文档
+中文版
+C:\Users\Administrator\Desktop\books\book\编程珠玑.pdf
+英文版
+C:\Users\Administrator\Desktop\books\book\Programming.Pearls.pdf
+
+6.程序设计实践
+中文版
+C:\Users\Administrator\Desktop\books\book\The Practice of Programming(中文版).pdf
+英文版
+C:\Users\Administrator\Desktop\books\book\The Practice of Programming(中文版).pdf
+
+III.编程语言基础
+1.程序员修炼之道
+中文版
+C:\Users\Administrator\Desktop\books\book\程序员修炼之道.pdf
+英文版
+C:\Users\Administrator\Desktop\books\book\The.Pragmatic.Programmer.pdf
+
+2.程序设计语言-实践之路
+中文版
+C:\Users\Administrator\Desktop\books\book\程序设计语言实践之路.pdf
+英文版
+C:\Users\Administrator\Desktop\books\book\Programming Language Pragmatics.pdf
+
+3. Programming Languages -- 在线视频
+https://www.coursera.org/learn/programming-languages
+
+4.	Udacity CS262 Programming Language -- 在线视频
+https://www.udacity.com/course/programming-languages--cs262
+
+5.用Python写一个 Scheme Interpreter
+http://inst.eecs.berkeley.edu/~cs61a/fa13/proj/scheme/scheme.html
+
+其他重要书籍
+Code Complete
+The Pragmatic Programmer(上面已经提及)
