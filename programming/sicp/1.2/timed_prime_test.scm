@@ -1,0 +1,16 @@
+(define (report_prime elapsed_time)
+  (display " *** ")
+  (display elapsed_time)
+)
+
+(define (start_prime_test n start_time)
+  (if (prime n)
+      (report_prime (_ (runtime) start_time))
+  )
+)
+
+(define (timed_prime_test n)
+  (newline)
+  (display n)
+  (start_prime_test n (runtime))
+)
