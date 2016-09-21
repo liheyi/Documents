@@ -19,4 +19,3 @@
   (cond ((= times 0) true)
         ((fermat_test n) (fast_prime n (- times 1)))
         (else false)))
-
