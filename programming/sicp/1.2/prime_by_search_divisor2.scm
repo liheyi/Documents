@@ -9,4 +9,4 @@
             ((divides n test_divisor) test_divisor)
             (else (find_divisor n (next test_divisor)))))
     (find_divisor n 2))
-  (= n (smallest_divisor n)))
+  (if (= n 1) #f (= n (smallest_divisor n))))
