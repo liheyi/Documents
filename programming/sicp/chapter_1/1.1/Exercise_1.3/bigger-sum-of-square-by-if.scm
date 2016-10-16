@@ -1,0 +1,10 @@
+(load "sum-of-square.scm")
+
+(define (bigger-sum-of-square-by-if x y z)
+  (if (> x y)
+      (if (> y z)
+          (sum-of-square x y)
+          (sum-of-square x z))
+      (if (> x z)
+          (sum-of-square y x)
+          (sum-of-square y z))))
