@@ -1,4 +1,4 @@
-(load "sum-of-square.scm")
+(load "1.1/Exercise_1.3/sum-of-square.scm")
 
 (define (bigger-sum-of-square-by-if x y z)
   (if (> x y)
