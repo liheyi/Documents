@@ -1,5 +1,4 @@
-(load "../Example_3/factorial_by_iteration.scm")
-
+(load "1.2/Example_3/factorial_by_iteration.scm")
 (define (pascal row col)
   (cond ((< row col)
        (error "unvalid colum value."))
