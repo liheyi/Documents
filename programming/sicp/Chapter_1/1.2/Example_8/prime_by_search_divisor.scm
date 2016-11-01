@@ -6,4 +6,6 @@
           (else (find-divisor n (+ test-divisor 1)))))
   (find-divisor n 2))
 
-(define (prime? n) (= n (smallest-divisor n)))
+(define (prime? n) 
+  (if (= n 1) #f
+      (= n (smallest-divisor n))))
