@@ -1,0 +1,5 @@
+(load "1.3/Example_13/fixed_point_of_function.scm")
+(load "1.3/Exercise_1.45/expt.scm")
+(load "1.3/Exercise_1.45/average_damp_n_times.scm")
+(define (damped-nth-root n damp-times)
+  (lambda (x) (fixed-point (average-damp-n-times (lambda (y) (/ x (expt y (- n 1)))) damp-times) 1.0)))

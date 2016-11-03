@@ -1,0 +1,5 @@
+(load "1.3/Exercise_1.43/repeated_by_recursion.scm")
+(load "1.3/Exercise_1.44/smooth.scm")
+(define (smooth-n-times f n)
+  (let ((n-times-smooth (repeated smooth n)))
+    (n-times-smooth f)))
