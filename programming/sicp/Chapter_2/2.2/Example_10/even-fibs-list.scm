@@ -1,0 +1,8 @@
+(define (even-fibs-list n)
+  (define (next k)
+    (if (> k n) '()
+        (let ((f (fib k)))
+          (if (even? f)
+              (cons f (next (+ k 1)))
+              (next (+ k 1))))))
+  (next 0)
