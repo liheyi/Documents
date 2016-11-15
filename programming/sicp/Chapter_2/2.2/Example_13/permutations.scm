@@ -1,0 +1,8 @@
+(load "2.2/Example_12/flatmap.scm")
+(load "2.2/Example_13/remove.scm")
+(define (permutations s)
+  (if (null? s) (list '())
+      (flatmap (lambda (x)
+                 (map (lambda (p) (cons x p))
+                      (permutations (remove x s))))
+               s)))
