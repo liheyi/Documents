@@ -1,0 +1,5 @@
+(define (make-sum a1 a2)
+  (cond ((is-number? a1 0) a2)
+        ((is-number? a2 0) a1)
+        ((and (number? a1) (number? a2)) (+ a1 a2))
+        (else (list '+ a1 a2))))
