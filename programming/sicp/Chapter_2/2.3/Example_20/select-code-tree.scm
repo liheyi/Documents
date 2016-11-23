@@ -1,0 +1,6 @@
+(define (left-branch tree) (car tree))
+(define (right-branch tree) (cadr tree))
+(define (symbols tree)
+  (if (leaf? tree) (list (symbol-leaf tree)) (caddr tree)))
+(define (weight tree)
+  (if (leaf? tree) (weight-leaf tree) (cadddr tree)))
